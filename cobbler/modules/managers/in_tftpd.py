@@ -133,7 +133,7 @@ class InTftpdManager(object):
         self.tftpgen.write_templates(system)
 
     def add_single_distro(self, distro):
-        self.tftpgen.copy_single_distro_files(distro, self.bootloc, False)
+        self.tftpgen.copy_single_distro_files(distro, self.bootloc, True)
         self.write_boot_files_distro(distro)
 
     def sync(self, verbose=True):
@@ -152,7 +152,7 @@ class InTftpdManager(object):
         for d in self.collection_mgr.distros():
             try:
                 self.logger.info("copying files for distro: %s" % d.name)
-                self.tftpgen.copy_single_distro_files(d, self.bootloc, False)
+                self.tftpgen.copy_single_distro_files(d, self.bootloc, True)
             except CX as e:
                 self.logger.error(e.value)
 
