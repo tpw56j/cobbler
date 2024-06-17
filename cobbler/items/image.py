@@ -225,7 +225,10 @@ class Image(item.Item):
 
         :param arch: The new architecture to set.
         """
+        old_arch = self._arch
         self._arch = enums.Archs.to_enum(arch)
+        if self._has_initialized and self._arch != old_arch and self._inmemory:
+            self.api.images().update_index_value(self, "arch", old_arch, self._arch)
 
     @InheritableProperty
     def autoinstall(self) -> str:
@@ -610,7 +613,10 @@ class Image(item.Item):
             menu_list = self.api.menus()
             if not menu_list.find(name=menu):
                 raise CX(f"menu {menu} not found")
+        old_menu = self._menu
         self._menu = menu
+        if self._has_initialized and menu != old_menu and self._inmemory:
+            self.api.images().update_index_value(self, "menu", old_menu, menu)
 
     @LazyProperty
     def display_name(self) -> str:

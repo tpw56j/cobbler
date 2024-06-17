@@ -548,3 +548,12 @@ def test_dict_cache_invalidate(
     )
     with expected_exception:
         cobbler_api.clean_items_cache(True)
+
+    # Cleanup
+    cobbler_api.remove_system(test_system1.name)
+    cobbler_api.remove_system(test_system2.name)
+    cobbler_api.remove_profile(test_profile3.name)
+    cobbler_api.remove_profile(test_profile2.name)
+    cobbler_api.remove_profile(test_profile1.name)
+    cobbler_api.remove_menu(test_menu2.name)
+    cobbler_api.remove_menu(test_menu1.name)
